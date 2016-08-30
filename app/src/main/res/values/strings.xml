@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ReadFile</string>
+    <string name="action_settings">Settings</string>
+    <string name="readfrom">Read</string>
+</resources>
