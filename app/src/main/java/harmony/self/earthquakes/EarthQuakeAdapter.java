@@ -29,11 +29,23 @@ public class EarthQuakeAdapter extends ArrayAdapter {
         EarthQuake currentEarthQuake = (EarthQuake) getItem(position);
 
         // Find the TextView in the list_item.xml layout with the ID city
+        TextView locationTextView = (TextView) listItemView.findViewById(R.id.location);
         TextView cityTextView = (TextView) listItemView.findViewById(R.id.city);
+
+        String location = currentEarthQuake.getCity();
+        String[] parts = new String[2];
+        if (location.contains("of ")){
+            parts = location.split("of ");
+            parts[0] += "of";
+        } else {
+        parts[0] = "Near the";
+        parts[1] = location;
+        }
 
         // Get the city name from the current earthquake object and
         // set this text on the name TextView
-        cityTextView.setText(currentEarthQuake.getCity());
+        locationTextView.setText(parts[0]);
+        cityTextView.setText(parts[1]);
 
         // Find the TextView in the list_item.xml layout with the ID timeDate
         TextView timeTextView = (TextView) listItemView.findViewById(R.id.time);

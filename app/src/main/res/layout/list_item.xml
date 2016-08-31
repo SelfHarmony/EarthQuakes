@@ -13,10 +13,17 @@
             tools:text="8.9" />
 
     <TextView
+            android:id="@+id/location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:text="Near the" />
+
+    <TextView
             android:id="@+id/city"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
             tools:text="San Francisco, CA" />
 
     <TextView
