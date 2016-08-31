@@ -16,17 +16,9 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Create a fake list of earthquake locations.
-        ArrayList<EarthQuake> earthquakes = new ArrayList<EarthQuake>();
+        // Create a fake list of earthquakes.
+        ArrayList<EarthQuake> earthquakes = QueryUtils.extractEarthquakes();
 
-            earthquakes.add(new EarthQuake("San Francisco", "12", "21.12.2012"));
-        earthquakes.add(new EarthQuake("Moscow", "3", "21.12.2012"));
-        earthquakes.add(new EarthQuake("San Francisco", "4", "21.12.2012"));
-        earthquakes.add(new EarthQuake("San Francisco", "3", "21.12.2012"));
-        earthquakes.add(new EarthQuake("San Francisco", "6", "21.12.2012"));
-        earthquakes.add(new EarthQuake("San Francisco", "7", "21.12.2012"));
-        earthquakes.add(new EarthQuake("San Francisco", "8", "21.12.2012"));
-        earthquakes.add(new EarthQuake("San Francisco", "1", "21.12.2012"));
 
 
 
