@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -62,11 +63,12 @@ public class EarthQuakeAdapter extends ArrayAdapter {
 
         // Find the TextView in the list_item.xml layout with the ID magnitude
         TextView magnitudeTextView = (TextView) listItemView.findViewById(R.id.magnitude);
-
+        DecimalFormat formatter = new DecimalFormat("0.0");
+        String magnitude = formatter.format(currentEarthQuake.getMagnitude());
         // Get the TextView resource ID from the current Earthquake object and
         // set this text on the magnitudeTextView
 
-        magnitudeTextView.setText(currentEarthQuake.getMagnitude());
+        magnitudeTextView.setText(magnitude);
 
             //    ПРИМЕР ДЛЯ КАРТИНОК
                     // set the image to iconView

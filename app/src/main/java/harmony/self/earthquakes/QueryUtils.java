@@ -54,7 +54,7 @@ public final class QueryUtils {
             for (int i = 0; i < features.length(); i++) {
                 JSONObject earthquakeInstance = features.getJSONObject(i);
                 JSONObject properties = earthquakeInstance.getJSONObject("properties");
-                String magnitude = properties.getString("mag");
+                double magnitude = properties.getDouble("mag");
                 String city = properties.getString("place");
 
             //  АЛЬТЕРНАТИВНЫЙ СПОСОБ ПЕРЕДЕАЧИ ПАРАМЕТРА ВРЕМЕНИ (ЧЕРЕЗ СТРОКУ)

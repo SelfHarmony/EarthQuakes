@@ -4,11 +4,11 @@ public class EarthQuake {
 
     private String city;
 
-    private String magnitude;
+    private double magnitude;
 
     private long date;
 
-    public EarthQuake(String city, String magnitude, Long date) {
+    public EarthQuake(String city, double magnitude, Long date) {
         this.city = city;
         this.magnitude = magnitude;
         this.date = date;
@@ -18,7 +18,7 @@ public class EarthQuake {
         return city;
     }
 
-    public String getMagnitude() {
+    public double getMagnitude() {
         return magnitude;
     }
 
