@@ -8,10 +8,17 @@ public class EarthQuake {
 
     private long date;
 
-    public EarthQuake(String city, double magnitude, Long date) {
+    private String url;
+
+    public EarthQuake(String city, double magnitude, Long date, String url) {
         this.city = city;
         this.magnitude = magnitude;
         this.date = date;
+        this.url = url;
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     public String getCity() {
@@ -25,5 +32,6 @@ public class EarthQuake {
     public long getDate() {
         return date;
     }
+
 
 }

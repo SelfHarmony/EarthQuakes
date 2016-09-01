@@ -63,6 +63,7 @@ public final class QueryUtils {
                 JSONObject properties = earthquakeInstance.getJSONObject("properties");
                 double magnitude = properties.getDouble("mag");
                 String city = properties.getString("place");
+                String url = properties.getString("url");
 
             //  АЛЬТЕРНАТИВНЫЙ СПОСОБ ПЕРЕДЕАЧИ ПАРАМЕТРА ВРЕМЕНИ (ЧЕРЕЗ СТРОКУ)
                 /*String time = properties.getString("time");
@@ -71,7 +72,7 @@ public final class QueryUtils {
                 String newTime = dateToDisplay.format(ourDate);*/
 
                 Long time = properties.getLong("time");
-                earthquakes.add(new EarthQuake(city,magnitude,time));
+                earthquakes.add(new EarthQuake(city,magnitude,time, url));
             }
 
 
