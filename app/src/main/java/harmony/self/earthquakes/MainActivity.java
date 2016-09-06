@@ -1,8 +1,9 @@
 package harmony.self.earthquakes;
 
+import android.app.LoaderManager;
 import android.content.Intent;
+import android.content.Loader;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -10,9 +11,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<List<EarthQuake>> {
 
     //CONSTANTS
     private static String amountOfDataToShow = "50";
@@ -28,6 +30,12 @@ public class MainActivity extends ActionBarActivity {
      in the list.*/
     EarthQuakeAdapter earthQuakeAdapter;
 
+    /**
+     * Constant value for the earthquake loader ID. We can choose any integer.
+     * This really only comes into play if you're using multiple loaders.
+     */
+    private static final int EARTHQUAKE_LOADER_ID = 1;
+
     //////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -38,9 +46,15 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Get a reference to the LoaderManager, in order to interact with loaders.
+        LoaderManager loaderManager = getLoaderManager();
+
+        // Initialize the loader. Pass in the int ID constant defined above and pass in null for
+        // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
+        // because this activity implements the LoaderCallbacks interface).
+        loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
 
 
-        new BackgroundNetworking().execute(USGS_REQUEST_URL);
 
         ListView listView = (ListView) findViewById(R.id.list);
 
@@ -69,31 +83,29 @@ public class MainActivity extends ActionBarActivity {
          /*earthquakeListView.setAdapter(adapter);*/
     }
 
-    private void updateUI(ArrayList<EarthQuake> earthquakes) {
-
+    @Override
+    public Loader<List<EarthQuake>> onCreateLoader(int id, Bundle args) {
+        return new EarthquakeLoader(this, USGS_REQUEST_URL);
     }
 
-    private class BackgroundNetworking extends AsyncTask<String, Void, ArrayList<EarthQuake>>{
-        @Override
-        protected ArrayList<EarthQuake> doInBackground(String... urls) {
+    @Override
+    public void onLoadFinished(Loader<List<EarthQuake>> loader, List<EarthQuake> earthquakes) {
+        // Clear the adapter of previous earthquake data
+        earthQuakeAdapter.clear();
 
-            if (urls.length < 1 || urls[0] == null) {
-                return null;
-            }
-            // Perform the HTTP request for earthquake data and process the response.
-            ArrayList<EarthQuake> earthquakes = QueryUtils.fetchEarthquakeData(urls[0]);
-
-            return earthquakes;
+        // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
+        // data set. This will trigger the ListView to update.
+        if (earthquakes != null && !earthquakes.isEmpty()) {
+            earthQuakeAdapter.addAll(earthquakes);
         }
+    }
 
-        @Override
-        protected void onPostExecute(ArrayList<EarthQuake> result) {
+    @Override
+    public void onLoaderReset(Loader<List<EarthQuake>> loader) {
             earthQuakeAdapter.clear();
-
-                if (result != null && !result.isEmpty()) {
-                    earthQuakeAdapter.addAll(result);
-                }
-
-        }
     }
+
+
+
+
 }
