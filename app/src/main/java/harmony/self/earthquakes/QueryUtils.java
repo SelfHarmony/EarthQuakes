@@ -39,6 +39,9 @@ public final class QueryUtils {
     }
 
     public static ArrayList<EarthQuake> fetchEarthquakeData(String requestUrl){
+
+
+        Log.i(LOG_TAG, "QueryUtils fetchEarthquakeData");
         // Create URL object
         URL url = createURL(requestUrl);
 

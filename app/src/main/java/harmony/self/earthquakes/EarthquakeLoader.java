@@ -2,6 +2,7 @@ package harmony.self.earthquakes;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.util.Log;
 
 import java.util.List;
 
@@ -16,11 +17,15 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<EarthQuake>> {
 
     @Override
     protected void onStartLoading() {
+        Log.i(LOG_TAG, "loader onStartLoading");
+
         forceLoad();
     }
 
     @Override
     public List<EarthQuake> loadInBackground() {
+        Log.i(LOG_TAG, "loader loadInBackground");
+
         if (mUrl == null) {
             return null;
         }

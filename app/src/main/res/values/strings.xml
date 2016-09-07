@@ -2,4 +2,6 @@
     <string name="app_name">Recent Earthquakes</string>
     <string name="action_settings">Settings</string>
     <string name="readfrom">Read</string>
+    <string name="no_earthquakes">Try other earthquake request to retrieve data</string>
+    <string name="noInternet">No Internet connection</string>
 </resources>
