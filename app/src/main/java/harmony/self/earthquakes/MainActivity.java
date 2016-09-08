@@ -4,10 +4,12 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -24,12 +26,14 @@ import java.util.List;
 public class MainActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<List<EarthQuake>> {
 
     //CONSTANTS
+
+    private static final String USGS_REQUEST_URL = "http://earthquake.usgs.gov/fdsnws/event/1/query";
     private static String amountOfDataToShow = "50";
     private static String minmag = "0";
 
-    private static final String USGS_REQUEST_URL =
+    /*private static final String USGS_REQUEST_URL =
             "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=" +minmag+ "&limit=" + amountOfDataToShow;
-
+*/
     public static final String LOG_TAG = MainActivity.class.getName();
 
     /* Create an {@link EarthQuakeAdapter}, whose data source is a list of
@@ -111,7 +115,19 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
     @Override
     public Loader<List<EarthQuake>> onCreateLoader(int id, Bundle args) {
         Log.i(LOG_TAG, "loader onCreate");
-        return new EarthquakeLoader(this, USGS_REQUEST_URL);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String minMagnitude = sharedPrefs.getString(
+                getString(R.string.settings_min_magnitude_key),
+                getString(R.string.settings_min_magnitude_default));
+        Uri baseUri = Uri.parse(USGS_REQUEST_URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter("format", "geojson");
+        uriBuilder.appendQueryParameter("limit", "50");
+        uriBuilder.appendQueryParameter("minmag", minMagnitude);
+        uriBuilder.appendQueryParameter("orderby", "time");
+
+        return new EarthquakeLoader(this, uriBuilder.toString());
     }
 
     @Override
@@ -162,4 +178,5 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
         }
     return super.onOptionsItemSelected(item);
     }
+
 }
