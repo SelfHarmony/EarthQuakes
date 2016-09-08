@@ -13,6 +13,10 @@ public class SettingsActivity extends ActionBarActivity{
     }
 
     public static class EarthquakePreferenceFragment extends PreferenceFragment {
-
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.settings_main);
+        }
     }
 }
