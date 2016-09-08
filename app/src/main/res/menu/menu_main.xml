@@ -3,7 +3,9 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="harmony.self.earthquakes.MainActivity">
     <item android:id="@+id/action_settings"
-          android:title="@string/action_settings"
-          android:orderInCategory="100"
-          app:showAsAction="never"/>
+          android:title="@string/settings_menu_item"
+          android:icon="@drawable/ic_filter"
+          android:orderInCategory="1"
+          app:showAsAction="ifRoom" />
 </menu>
+
